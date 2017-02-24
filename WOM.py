@@ -12,7 +12,7 @@ I have no class, so no classes
 
 import scipy as sp
 
-def get_ray_plane_intercept(ray, plane):
+def get_ray_detector_intercept(ray, plane):
     n = plane['normal']
     d = ray['direction']
     denominator = sp.inner(d, n)
@@ -27,15 +27,28 @@ def get_ray_plane_intercept(ray, plane):
         return point
     return
 
+'''----------------------------------------------------
 
-# Define a ray
-ray = {'origin':sp.array([0.,0.,0.]), 'direction':sp.array([0., sp.sqrt(2.)/2, sp.sqrt(2.)/2])}
+                    Main
+
+---------------------------------------------------- '''
+
+'''# Define a ray
+ray = {'origin':sp.array([0.,0.,0.]), \
+       'direction':sp.array([0., sp.sqrt(2.)/2, sp.sqrt(2.)/2])}
 print 'ray = ', ray
+'''
 
-# Define a plane
-plane = {'point':sp.array([0.,1.,0.]), 'normal':sp.array([0.,1.,0.])}
-print 'plane = ', plane
+# Define a detector
+detector = {'point':sp.array([0.,1.,0.]), \
+         'normal':sp.array([0.,1.,0.])}
+print 'detector = ', detector
 
 # Find the interception
-point = get_ray_plane_intercept(ray, plane)
-print point
+point_source = {'origin':sp.array([0., 0., 0.])}
+
+iterations = 100
+i=0
+while i < iterations:
+    ray = generate_ray()
+    point = get_ray_detector_intercept(ray, detector)
