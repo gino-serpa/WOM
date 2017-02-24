@@ -11,6 +11,7 @@ Maybe I need classes
 '''
 
 import scipy as sp
+import pylab as pl
 
 def define_detector(d):
     detector = {'point':sp.array([0., d,0.]), \
@@ -36,10 +37,10 @@ def integrate_detector(detector, point):
         delta_x = 10./100
         delta_z = 10./100
         if sp.absolute(x)< 5 and sp.absolute(z)<5:
-            print 'There is a hit'
-            pixel_x = int(x/delta_x)+50
-            print pixel_x
-            pixel_z = int(z/delta_z)+50
+            #print 'There is a hit'
+            pixel_x = int((x+5)/delta_x)
+            #print pixel_x
+            pixel_z = int((z+5)/delta_z)
             detector['array'][pixel_x,pixel_z]+=1
     return
 
@@ -65,10 +66,10 @@ def random_3D_direction():
     phi       = sp.random.uniform(0,sp.pi*2)
     cos_theta = sp.random.uniform(-1,1)
     theta     = sp.arccos(cos_theta)
-
-    x = sp.sin(theta)*sp.cos(phi)
-    y = sp.sin(theta)*sp.sin(phi)
-    z = sp.cos(theta)
+    sin_theta = sp.sin(theta)
+    x = sin_theta*sp.cos(phi)
+    y = sin_theta*sp.sin(phi)
+    z = cos_theta
     return sp.array([x,y,z])
 
 def ray_info(ray):
@@ -88,6 +89,7 @@ def get_ray_detector_intercept(ray, plane):
         P_0r = ray['origin']
         numerator = sp.inner(P_0p-P_0r, n)
         t = numerator/denominator
+        if t<0: return None
         point = P_0r + t*d
         return point
     return
@@ -112,17 +114,17 @@ point_source = define_source()
 source_info(point_source)
 
 # Ray Trace
-iterations = 20
+iterations = 1000*1000
 i=0
 while i < iterations:
     # Generate a ray from the source
-    print i
+    #print i
     ray = generate_ray(point_source)
-    ray_info(ray)
+    #ray_info(ray)
 
     # Find the interception with the detector
     point = get_ray_detector_intercept(ray, detector_1)
-    print 'Intersection point: ',point
+    #print 'Intersection point: ',point
 
     # Accumulate energy in the detector
     integrate_detector(detector_1, point)
@@ -130,3 +132,5 @@ while i < iterations:
     i+=1
 
 # Display the detector
+im = pl.imshow(detector_1['array'],cmap='hot')
+pl.show()
