@@ -18,18 +18,29 @@ def define_detector(d):
              'width':  10.,\
              'height': 10.,\
              'width pixels': 100,\
-             'height pixels': 100}
+             'height pixels': 100,\
+             'array':sp.zeros((100,100))}
     return detector
 
 def detector_info(detector):
     print 'Detector Information'
-    print 'Point :', detector['point']
-    print 'Normal :',detector['normal']
-    print 'Width :',detector['width']
-    print 'Height :',detector['height']
-    print 'Width pixels :',detector['width pixels']
-    print 'Height pixels :',detector['height pixels']
+    for key in detector.keys():
+        print key,': ',detector[key]
     print
+    return
+
+def integrate_detector(detector, point):
+    if point!=None:
+        x = point[0]
+        z = point[2]
+        delta_x = 10./100
+        delta_z = 10./100
+        if sp.absolute(x)< 5 and sp.absolute(z)<5:
+            print 'There is a hit'
+            pixel_x = int(x/delta_x)+50
+            print pixel_x
+            pixel_z = int(z/delta_z)+50
+            detector['array'][pixel_x,pixel_z]+=1
     return
 
 def define_source():
@@ -45,9 +56,20 @@ def source_info(source):
 
 def generate_ray(source):
     ray={}
-    ray['direction'] = sp.array([1.,2.,1.])
     ray['origin']    = sp.array([0.,0.,0.])
+    ray['direction'] = random_3D_direction()
+
     return ray
+
+def random_3D_direction():
+    phi       = sp.random.uniform(0,sp.pi*2)
+    cos_theta = sp.random.uniform(-1,1)
+    theta     = sp.arccos(cos_theta)
+
+    x = sp.sin(theta)*sp.cos(phi)
+    y = sp.sin(theta)*sp.sin(phi)
+    z = sp.cos(theta)
+    return sp.array([x,y,z])
 
 def ray_info(ray):
     print 'Ray information'
@@ -71,6 +93,7 @@ def get_ray_detector_intercept(ray, plane):
     return
 
 
+
 '''----------------------------------------------------
 
                     Main
@@ -89,16 +112,21 @@ point_source = define_source()
 source_info(point_source)
 
 # Ray Trace
-iterations = 100
+iterations = 20
 i=0
 while i < iterations:
     # Generate a ray from the source
+    print i
     ray = generate_ray(point_source)
     ray_info(ray)
 
     # Find the interception with the detector
     point = get_ray_detector_intercept(ray, detector_1)
+    print 'Intersection point: ',point
+
     # Accumulate energy in the detector
+    integrate_detector(detector_1, point)
+
     i+=1
 
 # Display the detector
