@@ -94,6 +94,34 @@ def get_ray_detector_intercept(ray, plane):
         return point
     return
 
+def choose_lens(lens_choice):
+    if lens_choice=='Newport KBX043':
+        lens ={'Lens Shape': 'Bi-Convex',\
+                'length unit': 'mm',\
+               'Diameter': 25.4,\
+               'Lens Material': 'N-BK7',\
+               'Antireflection Coating': "Uncoated",\
+               'Effective Focal Length': 19.0,\
+               'Surface Quality': "40-20 scratch-dig",\
+               'Surface Accuracy Irregularity': "lambda/4",\
+               'Surface Accuracy, Power': '1.5 lambda',\
+               'Surface Flatness': 'lambda/4',\
+               'Focal Length, Back': 13.28,\
+               'F/#': 0.7,\
+               'Centration': '<=3 arc min',\
+               'Principle Plane 2': -5.71,\
+               'Principle Plane 1': 5.71,
+               'Radius of Curvature': 16.687,
+               'Chamfers': '0-0.8 mm face width',
+               'Chamfers Angle/Tolerance': '45deg +-15deg, typical',
+               'Diameter Tolerance': '+0/-0.1 mm',
+               'Focal Length Tolerance': '+-1 %',
+               'Center Thickness': 14.725,
+               'Center Thickness Tolerance': '+-0.1 mm',
+               'Edge Thickness': 3.0,
+               'Clear Aperture': '>=central 90% of diameter'}
+        return lens
+    return 'None'
 
 
 '''----------------------------------------------------
@@ -102,16 +130,17 @@ def get_ray_detector_intercept(ray, plane):
 Gino Serpa
 ---------------------------------------------------- '''
 
-
+# Define a source
+point_source = define_source()
+source_info(point_source)
 
 # Define a detector
 detector_1 = define_detector(2)
 detector_info(detector_1)
 
-
-# Define a source
-point_source = define_source()
-source_info(point_source)
+# Define a lens (Newport KBX043)
+lens1 = choose_lens('Newport KBX043')
+print lens1
 
 # Ray Trace
 iterations = 1000*1000
