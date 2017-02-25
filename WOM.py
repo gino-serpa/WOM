@@ -3,32 +3,17 @@
 
 Things I know I will need
 
-* A function to calculate the interception of a ray with a plane
 * A function to calculate interception of a ray with a sphere
 
-Maybe I need classes
 
 '''
 
 import scipy as sp
 import pylab as pl
-
-def define_detector(d):
-    detector = {'point':sp.array([0., d,0.]), \
-             'normal':sp.array([0.,1.,0.]),\
-             'width':  10.,\
-             'height': 10.,\
-             'width pixels': 100,\
-             'height pixels': 100,\
-             'array':sp.zeros((100,100))}
-    return detector
-
-def detector_info(detector):
-    print 'Detector Information'
-    for key in detector.keys():
-        print key,': ',detector[key]
-    print
-    return
+from WOMsources import *
+from WOMdetectors import *
+from WOMlenses import *
+from WOMrays import *
 
 def integrate_detector(detector, point):
     if point!=None:
@@ -44,39 +29,6 @@ def integrate_detector(detector, point):
             detector['array'][pixel_x,pixel_z]+=1
     return
 
-def define_source():
-    source = {'origin':sp.array([0., 0., 0.])}
-    return source
-
-def source_info(source):
-    print "Source Information"
-    for key in source.keys():
-        print key,': ',source[key]
-    print
-    return
-
-def generate_ray(source):
-    ray={}
-    ray['origin']    = sp.array([0.,0.,0.])
-    ray['direction'] = random_3D_direction()
-
-    return ray
-
-def random_3D_direction():
-    phi       = sp.random.uniform(0,sp.pi*2)
-    cos_theta = sp.random.uniform(-1,1)
-    theta     = sp.arccos(cos_theta)
-    sin_theta = sp.sin(theta)
-    x = sin_theta*sp.cos(phi)
-    y = sin_theta*sp.sin(phi)
-    z = cos_theta
-    return sp.array([x,y,z])
-
-def ray_info(ray):
-    print 'Ray information'
-    for key in ray.keys():
-        print key,': ',ray[key]
-    return
 
 def get_ray_detector_intercept(ray, plane):
     n = plane['normal']
@@ -93,35 +45,6 @@ def get_ray_detector_intercept(ray, plane):
         point = P_0r + t*d
         return point
     return
-
-def choose_lens(lens_choice):
-    if lens_choice=='Newport KBX043':
-        lens ={'Lens Shape': 'Bi-Convex',\
-                'length unit': 'mm',\
-               'Diameter': 25.4,\
-               'Lens Material': 'N-BK7',\
-               'Antireflection Coating': "Uncoated",\
-               'Effective Focal Length': 19.0,\
-               'Surface Quality': "40-20 scratch-dig",\
-               'Surface Accuracy Irregularity': "lambda/4",\
-               'Surface Accuracy, Power': '1.5 lambda',\
-               'Surface Flatness': 'lambda/4',\
-               'Focal Length, Back': 13.28,\
-               'F/#': 0.7,\
-               'Centration': '<=3 arc min',\
-               'Principle Plane 2': -5.71,\
-               'Principle Plane 1': 5.71,
-               'Radius of Curvature': 16.687,
-               'Chamfers': '0-0.8 mm face width',
-               'Chamfers Angle/Tolerance': '45deg +-15deg, typical',
-               'Diameter Tolerance': '+0/-0.1 mm',
-               'Focal Length Tolerance': '+-1 %',
-               'Center Thickness': 14.725,
-               'Center Thickness Tolerance': '+-0.1 mm',
-               'Edge Thickness': 3.0,
-               'Clear Aperture': '>=central 90% of diameter'}
-        return lens
-    return 'None'
 
 
 '''----------------------------------------------------
