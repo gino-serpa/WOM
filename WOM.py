@@ -66,9 +66,10 @@ iterations = 1000*1000
 i=0
 while i < iterations:
     # Generate a ray from the source
-    #print i
     ray = generate_ray(point_source)
-    #ray_info(ray)
+
+    # Find exit ray after traversing the lens
+    new_ray = traverse_element(lense1,ray)
 
     # Find the interception with the detector
     point = get_ray_detector_intercept(ray, detector_1)
