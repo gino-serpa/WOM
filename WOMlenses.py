@@ -1,8 +1,9 @@
 
-def choose_lens(lens_choice):
+def choose_lens(lens_choice, distance):
     if lens_choice=='Newport KBX043':
-        lens ={'Lens Shape': 'Bi-Convex',\
-                'length unit': 'mm',\
+        lens_characteristic\
+             ={'Lens Shape': 'Bi-Convex',\
+               'length unit': 'mm',\
                'Diameter': 25.4,\
                'Lens Material': 'N-BK7',\
                'Antireflection Coating': "Uncoated",\
@@ -25,5 +26,7 @@ def choose_lens(lens_choice):
                'Center Thickness Tolerance': '+-0.1 mm',
                'Edge Thickness': 3.0,
                'Clear Aperture': '>=central 90% of diameter'}
+        lens = { 'lens_charateristics':lens_characteristic,\
+                 'position':distance}
         return lens
     return 'None'

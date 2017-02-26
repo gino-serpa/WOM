@@ -1,10 +1,6 @@
 
 '''
 
-Things I know I will need
-
-* A function to calculate interception of a ray with a sphere
-
 
 '''
 
@@ -62,7 +58,7 @@ detector_1 = define_detector(2)
 detector_info(detector_1)
 
 # Define a lens (Newport KBX043)
-lens1 = choose_lens('Newport KBX043')
+lens1 = choose_lens('Newport KBX043', 10.)
 print lens1
 
 # Ray Trace
