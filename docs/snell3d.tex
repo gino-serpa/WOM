@@ -7,16 +7,16 @@
 Since the refracted ray should be in the same plane as the incident ray and the normal we should be able to express it as:
 
 \[
-r_r = \alpha  n + \beta r_i
+\hat r_r = \alpha  \hat n + \beta \hat r_i
 \]
 
-$\alpha$ and $\beta$ can be obtained from the noting that $r$ is a unit vector 
+$\alpha$ and $\beta$ can be obtained from the noting that $\hat r_i$ is a unit vector 
 and Snell's law:
 
 \begin{align*}
-r_i \cdot r_i                                         & = 1 \\
-(\alpha  n + \beta r_i) \cdot (\alpha  n + \beta r_i) & = 1 \\
-\alpha^2 + \beta^2 + 2 \alpha \beta (n \cdot r_i)     & = 1 
+\hat r_i \cdot \hat r_i                                                   & = 1 \\
+(\alpha  \hat n + \beta \hat r_i) \cdot (\alpha  \hat n + \beta \hat r_i) & = 1 \\
+\alpha^2 + \beta^2 + 2 \alpha \beta (\hat n \cdot \hat r_i)               & = 1 
 \end{align*}
 
 
@@ -30,16 +30,19 @@ n_i \sin{\theta_i} = n_r \sin{\theta_r}
 
 where
 
-\[
-\theta_i = \arccos{\left( -n \cdot r_i \right)}
-\]
+\begin{align*}
+\cos \theta_i  & = -\hat n \cdot \hat r_i                          \\
+\theta_i       & = \arccos{\left( -\hat n \cdot \hat r_i \right)} 
+\end{align*}
 
-And the expression ofr the angle on the refracted side:
+
+
+And the expression for the angle on the refracted side:
 
 \begin{align*}
--n \cdot r_r                     & = \cos\theta_r  \\
-(-n)\cdot (\alpha n +\beta r_i)  & = \cos\theta_r  \\
--\alpha-\beta (n\cdot r_i)       & = \cos\theta_r  \\
+-\hat n \cdot \hat r_r                          & = \cos\theta_r  \\
+(-\hat n)\cdot (\alpha \hat n +\beta \hat r_i)  & = \cos\theta_r  \\
+-\alpha-\beta (\hat n\cdot \hat r_i)            & = \cos\theta_r  \\
 \alpha                           & = -\cos\theta_r -\beta(n \cdot r_i) 
 \end{align*}
 
@@ -47,15 +50,15 @@ And the expression ofr the angle on the refracted side:
 replacing this in the first equation
 
 \[
-(- \cos\theta_r - \beta (n \cdot r_i))^2+ \beta^2 +2(-\cos\theta_r-\beta(n\cdot r_i))\beta(n\cdot r_i)=1
+(- \cos\theta_r - \beta (\hat n \cdot \hat r_i))^2+ \beta^2 + 2(-\cos\theta_r-\beta(\hat n\cdot \hat r_i))\beta(\hat n \cdot \hat r_i)=1
 \]
 
 \[
-(1-(n\cdot r_i)^2)\beta^2 = 1-\cos^2\theta_r
+(1-(\hat n\cdot \hat r_i)^2)\beta^2 = 1-\cos^2\theta_r
 \]
 
 \[
-\beta = + \sqrt{\dfrac{1-\cos^2\theta_r}{1-(n \cdot r_i)^2}}
+\beta = + \sqrt{\dfrac{1-\cos^2\theta_r}{1-(\hat n \cdot \hat r_i)^2}}
 \]
 
 
