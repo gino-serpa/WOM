@@ -43,6 +43,47 @@ def get_ray_detector_intercept(ray, plane):
     return
 
 
+def intercept_sphere_ray(sphere, ray):
+    center = sphere['center']
+    radius = sphere['radius']
+    print center, radius
+
+    p0 = ray['origin']
+    d  = ray['direction']
+    print p0, d
+
+    # Solve the equation
+    A = 1.
+    B = -2.
+    C = -10.
+    solutions = solve_quadratic(A, B, C)
+    print 'solutions', solutions
+
+    intercept=sp.array([7., 7., 7.])
+    return intercept
+
+def solve_quadratic(a,b,c):
+    # So there is a better way in which there are no problems
+    # if numerator and denominators are too small
+    disc = b**2-4*a*c
+    if disc < 0: return None
+    if disc ==0:
+        x=-b/2
+        if x<0:
+            return None
+        else:
+            return x
+    radical = sp.sqrt(disc)
+    x1 = (-b+radical)/(2*a)
+    x2 = (-b-radical)/(2*a)
+    solutions=[]
+    if x1>0: solutions.append(x1)
+    if x2>0: solutions.append(x2)
+    if len(solutions)==0: return None
+    solution=min(solutions)
+    return solutions
+
+
 '''----------------------------------------------------
 
                     Main
@@ -53,14 +94,34 @@ Gino Serpa
 point_source = define_source()
 source_info(point_source)
 
-# Define a detector
-detector_1 = define_detector(2)
-detector_info(detector_1)
-
 # Define a lens (Newport KBX043)
 lens1 = choose_lens('Newport KBX043', 10.)
 print lens1
 
+# Define a detector
+detector_1 = define_detector(2)
+detector_info(detector_1)
+
+
+#  Find intersection of the ray with an sphere of index n_s
+# Generate one ray
+ray = generate_ray(point_source)
+ray_info(ray)
+
+
+# Generate sphere
+sphere = {'center':sp.array([1., 12., 6.]), 'radius':7. }
+print sphere
+
+# Now I can calculate the intercept
+intercept = intercept_sphere_ray(sphere, ray)
+print intercept
+
+# Now I can calculate the refraction
+
+
+
+'''
 # Ray Trace
 iterations = 1000*1000
 i=0
@@ -83,3 +144,4 @@ while i < iterations:
 # Display the detector
 im = pl.imshow(detector_1['array'],cmap='hot')
 pl.show()
+'''

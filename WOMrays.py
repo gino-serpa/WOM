@@ -21,4 +21,5 @@ def ray_info(ray):
     print 'Ray information'
     for key in ray.keys():
         print key,': ',ray[key]
+    print
     return

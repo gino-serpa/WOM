@@ -11,7 +11,7 @@ def define_detector(d):
     return detector
 
 def detector_info(detector):
-    print 'Detector Information'
+    print '\nDetector Information'
     for key in detector.keys():
         print key,': ',detector[key]
     print
