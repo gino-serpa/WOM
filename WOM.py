@@ -46,20 +46,20 @@ def get_ray_detector_intercept(ray, plane):
 def intercept_sphere_ray(sphere, ray):
     center = sphere['center']
     radius = sphere['radius']
-    print center, radius
+    print '\nSphere center and radius: ', center, radius
 
     p0 = ray['origin']
     d  = ray['direction']
-    print p0, d
+    print 'Ray origin and direction: ', p0, d
 
     # Solve the equation
-    A = 1.
-    B = -2.
-    C = -10.
-    solutions = solve_quadratic(A, B, C)
-    print 'solutions', solutions
-
-    intercept=sp.array([7., 7., 7.])
+    A = sp.inner(d,d)
+    B = 2 * sp.inner(d,p0-center)
+    C = sp.inner(p0-center,p0-center)-radius**2
+    t = solve_quadratic(A, B, C)
+    print 'solution', t
+    if t!=None:
+        intercept = p0 + t*d
     return intercept
 
 def solve_quadratic(a,b,c):
@@ -81,7 +81,7 @@ def solve_quadratic(a,b,c):
     if x2>0: solutions.append(x2)
     if len(solutions)==0: return None
     solution=min(solutions)
-    return solutions
+    return solution
 
 
 '''----------------------------------------------------
@@ -106,16 +106,18 @@ detector_info(detector_1)
 #  Find intersection of the ray with an sphere of index n_s
 # Generate one ray
 ray = generate_ray(point_source)
+ray = {'origin':sp.array([0., 0., 0.]),\
+       'direction':sp.array([0., 1., 0.])}
 ray_info(ray)
 
 
 # Generate sphere
-sphere = {'center':sp.array([1., 12., 6.]), 'radius':7. }
-print sphere
+sphere = {'center':sp.array([7., 12., 0.]), 'radius':7. }
+print 'Sphere: ', sphere
 
 # Now I can calculate the intercept
 intercept = intercept_sphere_ray(sphere, ray)
-print intercept
+print 'Intercept: ',intercept
 
 # Now I can calculate the refraction
 
