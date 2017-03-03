@@ -27,7 +27,28 @@ def integrate_detector(detector, point):
             detector['array'][pixel_x,pixel_z]+=1
     return
 
+def traverse_lens(lens, ray):
+    '''
+    Here is the plan
+    * create two spheres and a box that define the lens
+    * Find the first interception (discard everything that does
+      not enter the first sphere)
+    * Given the intercept find the ray inisde the glass (Snell3d)
+    * Find the next intercept that should be the second sphere
+    * Again snell 3d
 
+    '''
+    # Generate sphere
+    sphere = {'center':sp.array([7., 12., 0.]), 'radius':7. }
+    print 'Sphere: ', sphere
+
+    # Now I can calculate the intercept
+    intercept = intercept_sphere_ray(sphere, ray)
+    print 'Intercept: ',intercept
+
+    ray_out = {'origin':sp.array([0,0,0]),\
+               'direction':sp.array([1,1,1])}
+    return ray_out
 
 
 '''----------------------------------------------------
@@ -48,22 +69,15 @@ print lens1
 detector_1 = define_detector(2)
 detector_info(detector_1)
 
-
-#  Find intersection of the ray with an sphere of index n_s
 # Generate one ray
-ray = generate_ray(point_source)
-ray = {'origin':sp.array([0., 0., 0.]),\
+ray_in = generate_ray(point_source)
+ray_in = {'origin':sp.array([0., 0., 0.]),\
        'direction':sp.array([0., 1., 0.])}
-ray_info(ray)
+ray_info(ray_in)
 
-
-# Generate sphere
-sphere = {'center':sp.array([7., 12., 0.]), 'radius':7. }
-print 'Sphere: ', sphere
-
-# Now I can calculate the intercept
-intercept = intercept_sphere_ray(sphere, ray)
-print 'Intercept: ',intercept
+# Traverse a lense
+ray_out = traverse_lens(lens1,ray_in)
+ray_info(ray_out)
 
 # Now I can calculate the refraction
 

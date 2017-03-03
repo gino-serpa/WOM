@@ -1,5 +1,6 @@
 import scipy as sp
 
+
 def get_ray_detector_intercept(ray, plane):
     n = plane['normal']
     d = ray['direction']
@@ -35,6 +36,7 @@ def intercept_sphere_ray(sphere, ray):
     if t!=None:
         intercept = p0 + t*d
     return intercept
+
 
 def solve_quadratic(a,b,c):
     # So there is a better way in which there are no problems
