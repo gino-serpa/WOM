@@ -1,8 +1,4 @@
 
-'''
-
-
-'''
 
 import scipy as sp
 import pylab as pl
