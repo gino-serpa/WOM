@@ -17,16 +17,19 @@ def get_pov_lens(lens):
     print lens
     radius = lens['lens_charateristics']['Radius of Curvature']
     thickness = lens['lens_charateristics']['Center Thickness']
+    diameter = lens['lens_charateristics']['Diameter']
     sphere1 = Sphere(radius*Y,
                       radius)
     sphere2 = Sphere((-radius+thickness)*Y,
                       radius)
-    pov_lens = Intersection(sphere1,sphere2,
-                            Texture(Pigment('color', BLUE)))
+    pov_lens = Intersection(sphere1,sphere2)
+    bounding_cylinder = Cylinder([0,0,0],[0,thickness,0],diameter/2.)
+    pov_lens = Intersection(pov_lens,bounding_cylinder,
+                        Texture(Pigment('color', BLUE)))
     return pov_lens
 
 '''
-2
+3! = 6
 '''
 
 # Set the lights
@@ -41,7 +44,7 @@ light4 = LightSource( [30,  30, -30],
 objects = [light1, light2, light3, light4]
 
 # Set the camera
-camera = Camera( 'location', 41*(X),
+camera = Camera( 'location', 100*X+40*Y+10*Z,
                  'look_at', ORIGIN )
 
 # Draw the three axis
@@ -63,16 +66,6 @@ lens1 = choose_lens('Newport KBX043', 10.)
 
 pov_lens1 = get_pov_lens(lens1)
 objects.append(pov_lens1)
-
-'''
-d = 2.6
-sphere1 = Sphere( [0, d, 0], 3)
-sphere2 = Sphere( [0, -d, 0], 3)
-intersection = Intersection(sphere1,\
-                            sphere2,\
-                            Texture( Pigment( 'color', [0, 0, 1])))
-objects.append(intersection)
-'''
 
 scene = Scene( camera, objects = objects )
 scene.render("WOM.png", width = 800, height = 600 )

@@ -34,12 +34,17 @@ def traverse_lens(lens, ray):
     * Again snell 3d
 
     '''
-    # Generate sphere
-    sphere = {'center':sp.array([7., 12., 0.]), 'radius':7. }
-    print 'Sphere: ', sphere
+    # Given the lens generate both spheres and the cylinder
+    # Ok stop and get this to be drawn by vapory
+    sphere1 = {'center':sp.array([7., 12., 0.]), 'radius':7. }
+    print 'Sphere: ', sphere1
+    cylinder = {'length':2, 'radius':1}
+    print 'Cylinder', cylinder
+    sphere2 = {'center':sp.array([7., 12., 0.]), 'radius':7. }
+    print 'Sphere: ', sphere2
 
     # Now I can calculate the intercept
-    intercept = intercept_sphere_ray(sphere, ray)
+    intercept = intercept_sphere_ray(sphere1, ray)
     print 'Intercept: ',intercept
 
     ray_out = {'origin':sp.array([0,0,0]),\
