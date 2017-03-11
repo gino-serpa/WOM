@@ -29,7 +29,7 @@ def get_pov_lens(lens):
     return pov_lens
 
 '''
-3! = 6
+4! = 24
 '''
 
 # Set the lights

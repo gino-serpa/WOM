@@ -35,7 +35,6 @@ def traverse_lens(lens, ray):
 
     '''
     # Given the lens generate both spheres and the cylinder
-    # Ok stop and get this to be drawn by vapory
     sphere1 = {'center':sp.array([7., 12., 0.]), 'radius':7. }
     print 'Sphere: ', sphere1
     cylinder = {'length':2, 'radius':1}
@@ -72,8 +71,8 @@ detector_info(detector_1)
 
 # Generate one ray
 ray_in = generate_ray(point_source)
-ray_in = {'origin':sp.array([0., 0., 0.]),\
-       'direction':sp.array([0., 1., 0.])}
+ray_in = {'origin':sp.array([0., -25.4, 0.]),\
+       'direction':sp.array([0.,   5.0, 5.])}
 ray_info(ray_in)
 
 # Traverse a lense
