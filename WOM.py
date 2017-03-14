@@ -35,12 +35,21 @@ def traverse_lens(lens, ray):
 
     '''
     # Given the lens generate both spheres and the cylinder
-    sphere1 = {'center':sp.array([7., 12., 0.]), 'radius':7. }
-    print 'Sphere: ', sphere1
-    cylinder = {'length':2, 'radius':1}
+    # Lens data
+    curv_lens = lens['lens_charateristics']['Radius of Curvature']
+    thickness = lens['lens_charateristics']['Center Thickness']
+    diameter = lens['lens_charateristics']['Diameter']
+
+    sphere1 = {'center':sp.array([0., curv_lens, 0.]), \
+               'radius':curv_lens }
+    print 'Sphere1: ', sphere1
+
+    cylinder = {'length':thickness, 'radius':diameter/2.}
     print 'Cylinder', cylinder
-    sphere2 = {'center':sp.array([7., 12., 0.]), 'radius':7. }
-    print 'Sphere: ', sphere2
+
+    sphere2 = {'center':sp.array([0., thickness-curv_lens, 0.]), \
+               'radius':curv_lens }
+    print 'Sphere2: ', sphere2
 
     # Now I can calculate the intercept
     intercept = intercept_sphere_ray(sphere1, ray)

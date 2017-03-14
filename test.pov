@@ -1,4 +1,5 @@
 #include "colors.inc"
+#include "glass.inc"
 
 	//		Here goes the camera definition
 camera {location <50, 30, 50> look_at <0, 0, 0>}
@@ -44,5 +45,6 @@ intersection {
 		rotate 180*x
 		translate Lens_thickness*y}
 	object{cylinder{<0,0,0>,<0,Lens_thickness,0>,Lens_diameter/2.}}
-	texture {pigment { color LightBlue transmit 0.35}}
+	texture {T_Glass3}
+	interior {I_Glass}
 	}

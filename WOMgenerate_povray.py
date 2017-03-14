@@ -3,7 +3,8 @@ import os
 
 def create_includes():
     c = ""
-    c += '#include "colors.inc"\n\n'
+    c += '#include "colors.inc"\n'
+    c += '#include "glass.inc"\n\n'
     return c
 
 def create_background():
@@ -72,7 +73,8 @@ def create_pov_lens(lens):
                                 "\t\trotate 180*x\n" +\
                                 "\t\ttranslate Lens_thickness*y}\n"+\
                         "\tobject{cylinder{<0,0,0>,<0,Lens_thickness,0>,Lens_diameter/2.}}\n"+\
-                        "\ttexture {pigment { color LightBlue transmit 0.35}}\n"+\
+                        "\ttexture {T_Glass3}\n"+\
+                        "\tinterior {I_Glass}\n"+\
                     "\t}\n"
 
     return c

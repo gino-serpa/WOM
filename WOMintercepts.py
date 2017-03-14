@@ -35,7 +35,7 @@ def intercept_sphere_ray(sphere, ray):
     print 'solution', t
     if t!=None:
         intercept = p0 + t*d
-    return intercept
+    return None
 
 
 def solve_quadratic(a,b,c):
