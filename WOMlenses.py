@@ -1,7 +1,7 @@
 
 def choose_lens(lens_choice, distance):
     if lens_choice=='Newport KBX043':
-        lens_characteristic\
+        lens_characteristics\
              ={'Lens Shape': 'Bi-Convex',\
                'length unit': 'mm',\
                'Diameter': 25.4,\
@@ -26,7 +26,17 @@ def choose_lens(lens_choice, distance):
                'Center Thickness Tolerance': '+-0.1 mm',
                'Edge Thickness': 3.0,
                'Clear Aperture': '>=central 90% of diameter'}
-        lens = { 'lens_charateristics':lens_characteristic,\
+        lens = { 'lens_charateristics':lens_characteristics,\
                  'position':distance}
         return lens
     return 'None'
+
+def lens_info(lens):
+    print ("\t\tLens information")
+    print ("\nLens Characteristics")
+    for key in lens['lens_charateristics'].keys():
+        print (key,":",lens['lens_charateristics'][key])
+    print ( "\nLens Position" )
+    print ( lens["position"]  )
+
+    return

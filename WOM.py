@@ -72,7 +72,7 @@ source_info(point_source)
 
 # Define a lens (Newport KBX043)
 lens1 = choose_lens('Newport KBX043', 10.)
-print lens1
+lens_info(lens1)
 
 # Define a detector
 detector_1 = define_detector(2)
@@ -81,7 +81,7 @@ detector_info(detector_1)
 # Generate one ray
 ray_in = generate_ray(point_source)
 ray_in = {'origin':sp.array([0., -25.4, 0.]),\
-       'direction':sp.array([0.,   5.0, 5.])}
+       'direction':sp.array([0.,   0.2, 0.0001])}
 ray_info(ray_in)
 
 # Traverse a lense

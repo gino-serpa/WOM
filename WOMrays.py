@@ -18,7 +18,7 @@ def random_3D_direction():
     return sp.array([x,y,z])
 
 def ray_info(ray):
-    print 'Ray information'
+    print '\n\t\tRay information'
     for key in ray.keys():
         print key,': ',ray[key]
     print
